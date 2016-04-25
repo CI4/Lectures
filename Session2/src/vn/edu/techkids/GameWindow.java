@@ -109,25 +109,25 @@ public class GameWindow extends Frame implements Runnable {
                         break;
                 }
 
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_W:
-                        plane2.dy = -5;
-
-                        // repaint();
-                        break;
-                    case KeyEvent.VK_S:
-                        plane2.dy = 5;
-                        // repaint();
-                        break;
-                    case KeyEvent.VK_A:
-                        plane2.dx = -5;
-                        // repaint();
-                        break;
-                    case KeyEvent.VK_D:
-                        plane2.dx = 5;
-                        // repaint();
-                        break;
-                }
+//                switch (e.getKeyCode()) {
+//                    case KeyEvent.VK_W:
+//                        plane2.dy = -5;
+//
+//                        // repaint();
+//                        break;
+//                    case KeyEvent.VK_S:
+//                        plane2.dy = 5;
+//                        // repaint();
+//                        break;
+//                    case KeyEvent.VK_A:
+//                        plane2.dx = -5;
+//                        // repaint();
+//                        break;
+//                    case KeyEvent.VK_D:
+//                        plane2.dx = 5;
+//                        // repaint();
+//                        break;
+//                }
             }
 
             @Override
@@ -153,24 +153,24 @@ public class GameWindow extends Frame implements Runnable {
                         break;
                 }
 
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_W:
-                        plane2.dy = 0;
-                        // repaint();
-                        break;
-                    case KeyEvent.VK_S:
-                        plane2.dy = 0;
-                        // repaint();
-                        break;
-                    case KeyEvent.VK_A:
-                        plane2.dx = 0;
-                        // repaint();
-                        break;
-                    case KeyEvent.VK_D:
-                        plane2.dx = 0;
-                        // repaint();
-                        break;
-                }
+//                switch (e.getKeyCode()) {
+//                    case KeyEvent.VK_W:
+//                        plane2.dy = 0;
+//                        // repaint();
+//                        break;
+//                    case KeyEvent.VK_S:
+//                        plane2.dy = 0;
+//                        // repaint();
+//                        break;
+//                    case KeyEvent.VK_A:
+//                        plane2.dx = 0;
+//                        // repaint();
+//                        break;
+//                    case KeyEvent.VK_D:
+//                        plane2.dx = 0;
+//                        // repaint();
+//                        break;
+//                }
             }
         });
         this.addMouseMotionListener(new MouseMotionListener(){
@@ -229,8 +229,24 @@ public class GameWindow extends Frame implements Runnable {
 
                 Point mousePoint = MouseInfo.getPointerInfo().getLocation();
 
-//                mousePoint.x += getLocationOnScreen().x;
-//                mousePoint.y += getLocationOnScreen().y;
+                mousePoint.x -= getLocationOnScreen().x;
+                mousePoint.y -= getLocationOnScreen().y;
+
+                if(mousePoint.x - 5 > plane2.x) {
+                    plane2.dx = 5;
+                } else if(mousePoint.x + 5 < plane2.x) {
+                    plane2.dx = -5;
+                } else {
+                    plane2.dx = 0;
+                }
+
+                if(mousePoint.y - 5 > plane2.y) {
+                    plane2.dy = 5;
+                } else if(mousePoint.y + 5 < plane2.y) {
+                    plane2.dy = -5;
+                } else {
+                    plane2.dy = 0;
+                }
 //
 //                if(mousePoint.x - 5 > x2) {
 //                    dx2 = 5;
