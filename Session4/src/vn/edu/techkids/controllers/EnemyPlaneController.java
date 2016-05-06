@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Created by qhuydtvt on 5/6/2016.
  */
-public class EnemyPlaneController extends SingleController {
+public class EnemyPlaneController extends SingleController implements Colliable {
 
     private EnemyBulletControllerManager enemyBulletControllerManager;
     private int count = 0;
@@ -21,6 +21,7 @@ public class EnemyPlaneController extends SingleController {
         super(gameObject, gameDrawer);
         this.gameVector.dy = 2;
         enemyBulletControllerManager = new EnemyBulletControllerManager();
+        CollisionPool.getInst().add(this);
     }
 
     /* TODO override run */
@@ -52,5 +53,10 @@ public class EnemyPlaneController extends SingleController {
     public void paint(Graphics g) {
         super.paint(g);
         this.enemyBulletControllerManager.paint(g);
+    }
+
+    @Override
+    public void onCollide(Colliable c) {
+
     }
 }

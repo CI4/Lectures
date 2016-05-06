@@ -7,13 +7,14 @@ import vn.edu.techkids.views.ImageDrawer;
 /**
  * Created by qhuydtvt on 4/29/2016.
  */
-public class BulletController extends SingleController {
+public class BulletController extends SingleController implements Colliable {
 
     public static final int SPEED = 15;
 
     public BulletController(Bullet gameObject, ImageDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         gameVector.dy = -SPEED;
+        CollisionPool.getInst().add(this);
     }
 
     @Override
@@ -23,4 +24,19 @@ public class BulletController extends SingleController {
             this.gameObject.setAlive(false);
         }
     }
+
+    @Override
+    public void onCollide(Colliable c) {
+        if(c instanceof EnemyPlaneController){
+            c.getGameObject().setAlive(false);
+            gameObject.setAlive(false);
+        }
+    }
 }
+
+
+
+
+
+
+

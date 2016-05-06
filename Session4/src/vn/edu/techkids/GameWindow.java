@@ -1,10 +1,7 @@
 package vn.edu.techkids;
 /* TODO packaage exanplation */
 
-import vn.edu.techkids.controllers.EnemyPlaneController;
-import vn.edu.techkids.controllers.EnemyPlaneControllerManager;
-import vn.edu.techkids.controllers.PlaneController;
-import vn.edu.techkids.controllers.PlaneDirection;
+import vn.edu.techkids.controllers.*;
 import vn.edu.techkids.models.GameConfig;
 
 import javax.imageio.ImageIO;
@@ -87,8 +84,8 @@ public class GameWindow extends Frame implements Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("keyPressed");
-                System.out.println(e.getKeyCode());
+//                System.out.println("keyPressed");
+//                System.out.println(e.getKeyCode());
 
                 PlaneDirection planeDirection = PlaneDirection.NONE;
 
@@ -116,7 +113,7 @@ public class GameWindow extends Frame implements Runnable {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                System.out.println("keyReleased");
+//                System.out.println("keyReleased");
 
                 PlaneDirection planeDirection = PlaneDirection.NONE;
                 switch (e.getKeyCode()) {
@@ -152,7 +149,7 @@ public class GameWindow extends Frame implements Runnable {
 //                } else {
 //                    dx2 = 0;
 //                }
-                System.out.println("mouseMoved");
+               // System.out.println("mouseMoved");
             }
         });
         thread = new Thread(this);
@@ -210,6 +207,7 @@ public class GameWindow extends Frame implements Runnable {
 //                }
  //               plane2.run();
 
+                CollisionPool.getInst().run();
 
                 planeController1.run();
                 EnemyPlaneControllerManager.getInst().run();

@@ -14,7 +14,7 @@ import java.util.Vector;
  */
 public class PlaneController extends SingleController {
 
-    public final int SPEED = 10;
+    public final int SPEED = 3;
     public final int MAX_BULLET_COUNT = 3;
 
     private BulletControllerManager bulletControllerManager;

@@ -1,5 +1,7 @@
 package vn.edu.techkids.models;
 
+import java.awt.*;
+
 /**
  * Created by qhuydtvt on 4/29/2016.
  */
@@ -51,6 +53,10 @@ public class GameObject {
 
     public boolean isAlive() {
         return isAlive;
+    }
+
+    public Rectangle getRect() {
+        return new Rectangle(x,y,width,height);
     }
 
     public void setAlive(boolean isAlive) {
