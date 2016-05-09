@@ -22,6 +22,12 @@ public class SingleController implements Controller {
         this.gameVector = new GameVector();
     }
 
+    public SingleController(GameObject gameObject, GameDrawer gameDrawer, GameVector gameVector) {
+        this.gameObject = gameObject;
+        this.gameDrawer = gameDrawer;
+        this.gameVector = gameVector;
+    }
+
     public GameObject getGameObject() {
         return gameObject;
     }

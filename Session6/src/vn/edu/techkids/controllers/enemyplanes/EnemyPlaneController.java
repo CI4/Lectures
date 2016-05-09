@@ -1,5 +1,6 @@
-package vn.edu.techkids.controllers;
+package vn.edu.techkids.controllers.enemyplanes;
 
+import vn.edu.techkids.controllers.*;
 import vn.edu.techkids.models.*;
 import vn.edu.techkids.views.GameDrawer;
 import vn.edu.techkids.views.ImageDrawer;
@@ -35,6 +36,16 @@ public class EnemyPlaneController extends SingleControllerWithHP implements Coll
         CollisionPool.getInst().add(this);
     }
 
+    public EnemyPlaneController(EnemyPlane gameObject,
+                                GameDrawer gameDrawer,
+                                GameVector gameVector,
+                                EnemyShotBehavior enemyShotBehavior) {
+        super(gameObject, gameDrawer);
+        this.gameVector = gameVector;
+        enemyBulletControllerManager = new EnemyBulletControllerManager();
+        this.enemyShotBehavior = enemyShotBehavior;
+        CollisionPool.getInst().add(this);
+    }
 
     /* TODO override run */
 
@@ -99,12 +110,18 @@ public class EnemyPlaneController extends SingleControllerWithHP implements Coll
         EnemyPlaneController enemyPlaneController = null;
         GameVector gameVector = null;
 
+
         switch (enemyPlaneType){
             case BLACK:
                 ImageDrawer blackPlaneDrawer =
                         new ImageDrawer("resources/plane1.png");
                 gameVector = new GameVector(0, 2);
-                enemyPlaneController = new EnemyPlaneController(enemyPlane, blackPlaneDrawer, gameVector);
+                enemyPlaneController =
+                        new EnemyPlaneController(
+                                enemyPlane,
+                                blackPlaneDrawer,
+                                gameVector,
+                                new EnemyDirectShotBehavior());
                 break;
             case WHITE:
                 ImageDrawer whitePlaneDrawer =

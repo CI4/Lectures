@@ -1,8 +1,7 @@
-package vn.edu.techkids.controllers;
+package vn.edu.techkids.controllers.enemyplanes;
 
-import vn.edu.techkids.models.EnemyPlane;
+import vn.edu.techkids.controllers.ControllerManager;
 import vn.edu.techkids.models.GameConfig;
-import vn.edu.techkids.views.ImageDrawer;
 
 /**
  * Created by qhuydtvt on 5/6/2016.

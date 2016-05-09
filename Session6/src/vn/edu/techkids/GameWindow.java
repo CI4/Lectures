@@ -2,6 +2,7 @@ package vn.edu.techkids;
 /* TODO packaage exanplation */
 
 import vn.edu.techkids.controllers.*;
+import vn.edu.techkids.controllers.enemyplanes.EnemyPlaneControllerManager;
 import vn.edu.techkids.models.GameConfig;
 
 import javax.imageio.ImageIO;

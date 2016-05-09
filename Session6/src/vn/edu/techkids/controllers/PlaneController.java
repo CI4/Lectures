@@ -1,12 +1,12 @@
 package vn.edu.techkids.controllers;
 
 
+import vn.edu.techkids.controllers.enemyplanes.EnemyPlaneController;
 import vn.edu.techkids.models.*;
 import vn.edu.techkids.views.GameDrawer;
 import vn.edu.techkids.views.ImageDrawer;
 
 import java.awt.*;
-import java.util.Vector;
 
 /**
  * Created by qhuydtvt on 4/29/2016.
