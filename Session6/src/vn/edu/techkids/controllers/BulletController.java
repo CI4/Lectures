@@ -3,6 +3,7 @@ package vn.edu.techkids.controllers;
 import vn.edu.techkids.models.Bullet;
 import vn.edu.techkids.models.EnemyPlane;
 import vn.edu.techkids.models.GameConfig;
+import vn.edu.techkids.models.GameVector;
 import vn.edu.techkids.views.ImageDrawer;
 
 /**
@@ -15,6 +16,12 @@ public class BulletController extends SingleController implements Colliable {
     public BulletController(Bullet gameObject, ImageDrawer gameDrawer) {
         super(gameObject, gameDrawer);
         gameVector.dy = -SPEED;
+        CollisionPool.getInst().add(this);
+    }
+
+    public BulletController(Bullet gameObject, ImageDrawer gameDrawer, GameVector gameVector) {
+        super(gameObject, gameDrawer);
+        this.gameVector = gameVector;
         CollisionPool.getInst().add(this);
     }
 
