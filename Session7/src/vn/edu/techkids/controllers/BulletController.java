@@ -41,11 +41,11 @@ public class BulletController extends SingleController implements Colliable {
             EnemyPlane enemyPlane = (EnemyPlane) c.getGameObject();
             enemyPlane.decreaseHP();
             if (enemyPlane.getHp() <= 0) {
-                enemyPlane.setAlive(false);
+                ((EnemyPlaneController)c).die();
             }
             gameObject.setAlive(false);
         }
-        else if(c instanceof EnemyBulletController){
+        else if(c instanceof EnemyBulletController) {
             //c.getGameObject().setAlive(false);
         }
     }

@@ -4,6 +4,7 @@ package vn.edu.techkids;
 import vn.edu.techkids.controllers.*;
 import vn.edu.techkids.controllers.enemybullets.EnemyBulletControllerManager;
 import vn.edu.techkids.controllers.enemyplanes.EnemyPlaneControllerManager;
+import vn.edu.techkids.gamescenes.*;
 import vn.edu.techkids.models.GameConfig;
 
 import javax.imageio.ImageIO;
@@ -17,38 +18,22 @@ import java.util.Vector;
 /**
  * Created by qhuydtvt on 4/24/2016.
  */
-public class GameWindow extends Frame implements Runnable {
-    Image backgroundImage;
+public class GameWindow extends Frame implements Runnable, GameSceneListener {
     Thread thread;
     Image backbufferImage;
-    PlaneController planeController1;
     GameConfig gameConfig;
 
-    private Vector<Controller> controllerVect;
-
+    GameScence gameScence;
 
     public GameWindow () {
 
         this.gameConfig = GameConfig.getInst();
-        controllerVect = new Vector<Controller>();
-
-        controllerVect.add(EnemyPlaneControllerManager.getInst());
-        controllerVect.add(EnemyBulletControllerManager.getInst());
-        controllerVect.add(PlaneController.getPlaneController1());
-        controllerVect.add(new BombControllerManager());
+        gameScence = new MenuGameScence();
+        gameScence.setGameSceneListener(this);
 
         this.setVisible(true);
         this.setSize(gameConfig.getScreenWidth(),
                 gameConfig.getScreenHeight());
-
-        this.planeController1 = PlaneController.getPlaneController1();
-
-
-        try {
-            backgroundImage = ImageIO.read(new File("resources/background.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         this.addWindowListener(new WindowListener() {
             @Override
@@ -96,51 +81,15 @@ public class GameWindow extends Frame implements Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
-//                System.out.println("keyPressed");
-//                System.out.println(e.getKeyCode());
-
-                PlaneDirection planeDirection = PlaneDirection.NONE;
-
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP:
-                        planeDirection = PlaneDirection.UP;
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        planeDirection = PlaneDirection.DOWN;
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        planeDirection = PlaneDirection.LEFT;
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        planeDirection = PlaneDirection.RIGHT;
-                        break;
-                    case KeyEvent.VK_SPACE:
-                        planeController1.shot();
-                        break;
-                }
-
-                planeController1.move(planeDirection);
-                /*TODO static explanation*/
+                gameScence.onKeyPressed(e);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-//                System.out.println("keyReleased");
-
-                PlaneDirection planeDirection = PlaneDirection.NONE;
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP:
-                    case KeyEvent.VK_DOWN:
-                        planeDirection = PlaneDirection.STOP_Y;
-                        break;
-                    case KeyEvent.VK_LEFT:
-                    case KeyEvent.VK_RIGHT:
-                        planeDirection = PlaneDirection.STOP_X;
-                        break;
-                }
-                planeController1.move(planeDirection);
+                gameScence.onKeyReleased(e);
             }
         });
+
         this.addMouseMotionListener(new MouseMotionListener(){
 
             @Override
@@ -177,16 +126,8 @@ public class GameWindow extends Frame implements Runnable {
                     gameConfig.getScreenHeight(), 1);
         }
         Graphics backbufferGraphics = backbufferImage.getGraphics();
-        backbufferGraphics.drawImage(backgroundImage, 0, 0,
-                gameConfig.getScreenWidth(), gameConfig.getScreenHeight(), null);
 
-//        planeController1.paint(backbufferGraphics);
-//        EnemyPlaneControllerManager.getInst().paint(backbufferGraphics);
-//        EnemyBulletControllerManager.getInst().paint(backbufferGraphics);
-
-        for (Controller controller : controllerVect) {
-            controller.paint(backbufferGraphics);
-        }
+        gameScence.paint(backbufferGraphics);
 
         g.drawImage(backbufferImage, 0, 0, null);
     }
@@ -223,15 +164,14 @@ public class GameWindow extends Frame implements Runnable {
 //                }
  //               plane2.run();
 
-                CollisionPool.getInst().run();
+
+
+                gameScence.run();
 
 //                planeController1.run();
 //                EnemyBulletControllerManager.getInst().run();
 //                EnemyPlaneControllerManager.getInst().run();
 
-                for(Controller controller : controllerVect) {
-                    controller.run();
-                }
 
                 repaint();
 
@@ -241,6 +181,15 @@ public class GameWindow extends Frame implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void changeGameScence(GameScenceType gameScenceType) {
+        switch (gameScenceType) {
+            case PLAY:
+                gameScence = new PlayGameScence();
+                break;
         }
     }
 }

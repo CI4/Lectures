@@ -1,13 +1,16 @@
 package vn.edu.techkids.controllers.enemyplanes;
 
+import vn.edu.techkids.Utils;
 import vn.edu.techkids.controllers.*;
 import vn.edu.techkids.controllers.enemybullets.EnemyBulletController;
 import vn.edu.techkids.controllers.enemybullets.EnemyBulletControllerManager;
 import vn.edu.techkids.models.*;
+import vn.edu.techkids.views.AnimationDrawer;
 import vn.edu.techkids.views.GameDrawer;
 import vn.edu.techkids.views.ImageDrawer;
 
 import java.awt.*;
+import java.util.Vector;
 
 /**
  * Created by qhuydtvt on 5/6/2016.
@@ -93,6 +96,7 @@ public class EnemyPlaneController extends SingleControllerWithHP implements Coll
     public void die() {
         /* Effect */
         /* Play sound */
+        Utils.playSound("resources/arrow_x.wav", false);
         this.gameObject.setAlive(false);
     }
 
@@ -132,8 +136,15 @@ public class EnemyPlaneController extends SingleControllerWithHP implements Coll
                                 new EnemyDirectShotBehavior());
                 break;
             case WHITE:
-                ImageDrawer whitePlaneDrawer =
-                        new ImageDrawer("resources/enemy_plane_white_1.png");
+//                ImageDrawer whitePlaneDrawer =
+//                        new ImageDrawer("resources/enemy_plane_white_1.png");
+                AnimationDrawer whitePlaneDrawer = new AnimationDrawer(
+                        new String[] {
+                                "resources/enemy_plane_white_1.png",
+                                "resources/enemy_plane_white_2.png",
+                                "resources/enemy_plane_white_3.png",
+                        }
+                );
                 gameVector = new GameVector(2, 2);
                 enemyPlaneController = new EnemyPlaneController(enemyPlane, whitePlaneDrawer, gameVector);
                 break;
